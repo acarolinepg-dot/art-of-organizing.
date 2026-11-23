@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#315b50">
+<meta name="theme-color" content="#c94f83">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Art of Organizing">
@@ -11,32 +11,32 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Art of Organizing</title>
 <style>
-:root{--green:#315b50;--green2:#47796b;--bg:#f4f7f5;--card:#fff;--ink:#20312b;--muted:#718078;--line:#e1e9e4;--red:#b64b4b}
+:root{--green:#c94f83;--green2:#df78a0;--bg:#fff5f8;--card:#fff;--ink:#39232d;--muted:#8b7580;--line:#f1dce5;--red:#b64b4b}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
 header{background:var(--green);color:white;padding:calc(18px + env(safe-area-inset-top)) 18px 22px;border-radius:0 0 24px 24px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:23px;font-weight:800;letter-spacing:-.5px}.sub{font-size:13px;opacity:.8;margin-top:4px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brandwrap{display:flex;align-items:center;gap:12px}.brandlogo{width:58px;height:58px;object-fit:cover;border-radius:14px;border:2px solid #ffffffaa;background:#fff}.brand{font-size:23px;font-weight:800;letter-spacing:-.5px}.sub{font-size:13px;opacity:.8;margin-top:4px}
 main{max-width:760px;margin:auto;padding:16px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:-2px}
 .stat,.panel,.record{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:0 3px 12px #20312b08}
 .stat small{color:var(--muted);display:block;font-size:12px}.stat strong{font-size:23px;display:block;margin-top:6px}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
 button{border:0;border-radius:13px;padding:13px 15px;font-weight:700;font-size:14px;cursor:pointer}
-.primary{background:var(--green);color:#fff}.secondary{background:#e7f0ec;color:var(--green)}
+.primary{background:var(--green);color:#fff}.secondary{background:#fbe3ed;color:var(--green)}
 h2{font-size:17px;margin:20px 2px 10px}.panel{margin:12px 0}
 label{display:block;font-size:12px;color:var(--muted);font-weight:650;margin:11px 0 5px}
 input,select,textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:12px;font:inherit;background:#fff;color:var(--ink);min-height:44px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .form-actions{display:flex;gap:9px;margin-top:16px}.form-actions button{flex:1}
 .hidden{display:none!important}.record{margin:9px 0;padding:13px}.recordtop{display:flex;justify-content:space-between;gap:10px}.client{font-weight:750}.meta{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5}.money{text-align:right;font-weight:800;color:var(--green);white-space:nowrap}.recordbuttons{display:flex;gap:8px;margin-top:10px}.recordbuttons button{padding:8px 11px;font-size:12px}
-.pill{font-size:11px;background:#e7f0ec;color:var(--green);padding:5px 8px;border-radius:20px}
+.pill{font-size:11px;background:#fbe3ed;color:var(--green);padding:5px 8px;border-radius:20px}
 .empty{text-align:center;color:var(--muted);padding:24px 10px;font-size:14px}
-.tabs{display:flex;gap:7px;overflow:auto;margin:14px 0}.tab{background:#e7ece9;color:#52635b;white-space:nowrap}.tab.active{background:var(--green);color:#fff}
+.tabs{display:flex;gap:7px;overflow:auto;margin:14px 0}.tab{background:#f7e8ee;color:#80556a;white-space:nowrap}.tab.active{background:var(--green);color:#fff}
 .note{font-size:12px;color:var(--muted);line-height:1.5}.danger{background:#faeaea;color:var(--red)}
 footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
 </style>
 </head>
 <body>
 <header>
- <div class="top"><div><div class="brand">Art of Organizing</div><div class="sub">Personal Organizer · Gestão de serviços</div></div><span class="pill">Pessoal</span></div>
+ <div class="top"><div class="brandwrap"><img class="brandlogo" src="art-of-organizing-logo.jpg" alt="Logo Art of Organizing"><div><div class="brand">Art of Organizing</div><div class="sub">Personal Organizer · Gestão de serviços</div></div></div><span class="pill">Pessoal</span></div>
 </header>
 <main>
  <section class="stats">
@@ -48,6 +48,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
  <div class="actions">
   <button class="primary" id="newBtn">＋ Nova limpeza</button>
   <button class="secondary" id="clientsBtn">👥 Clientes</button>
+  <button class="secondary" id="messagesBtn">💬 Mensagens</button>
  </div>
  <section id="formPanel" class="panel hidden">
   <h2 id="formTitle" style="margin-top:0">Registar limpeza</h2>
@@ -62,17 +63,32 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
     <div><label for="start">Hora de entrada</label><input id="start" type="time" required></div>
     <div><label for="end">Hora de saída</label><input id="end" type="time" required></div>
    </div>
-   <label for="obs">Observações (opcional)</label><textarea id="obs" rows="2" placeholder="Ex.: limpeza geral, passar a ferro..."></textarea>
+   <div class="grid2"><div><label for="payStatus">Estado do pagamento</label><select id="payStatus"><option value="Pago">Pago</option><option value="Falta pagar">Falta pagar</option></select></div><div><label for="payMethod">Forma de pagamento</label><select id="payMethod"><option>Dinheiro</option><option>Levantamento</option><option>Revolut</option></select></div></div>
+   <label for="obs">Observações da limpeza (opcional)</label><textarea id="obs" rows="2" placeholder="Ex.: limpeza geral, passar a ferro..."></textarea>
    <p class="note" id="preview">Preenche as horas e o valor para calcular os ganhos por hora.</p>
    <div class="form-actions"><button type="button" class="secondary" id="cancelBtn">Cancelar</button><button class="primary" type="submit">Guardar limpeza</button></div>
   </form>
  </section>
  <section id="clientsPanel" class="panel hidden">
   <h2 style="margin-top:0">Clientes</h2>
-  <label for="newClient">Adicionar cliente</label>
-  <div class="grid2"><input id="newClient" placeholder="Nome do cliente"><button class="primary" id="addClient">Adicionar</button></div>
+  <label for="newClient">Nome do cliente</label><input id="newClient" placeholder="Nome do cliente">
+  <label for="newPhone">Telemóvel</label><input id="newPhone" type="tel" placeholder="+351 9xx xxx xxx">
+  <label for="newClientNotes">Notas sobre a cliente</label><textarea id="newClientNotes" rows="2" placeholder="Morada, preferências, detalhes importantes..."></textarea>
+  <button class="primary" id="addClient">Guardar cliente</button>
   <div id="clientNames" class="meta" style="margin-top:12px"></div>
   <p class="note">Os nomes também aparecem como sugestões quando registas uma limpeza.</p>
+ </section>
+ <section id="messagesPanel" class="panel hidden">
+  <h2 style="margin-top:0">Mensagens para clientes</h2>
+  <p class="note">Prepara uma mensagem com o valor ou a próxima limpeza. Podes abrir WhatsApp ou SMS para confirmar o envio.</p>
+  <label for="msgClient">Cliente</label><input id="msgClient" list="clientList" placeholder="Nome da cliente">
+  <label for="msgPhone">Telemóvel com indicativo</label><input id="msgPhone" type="tel" placeholder="+351 9xx xxx xxx">
+  <label for="msgType">Tipo de mensagem</label><select id="msgType"><option value="price">Comunicar valor da limpeza</option><option value="next">Confirmar próxima limpeza</option><option value="reminder">Lembrete da limpeza</option><option value="thanks">Agradecimento</option></select>
+  <div class="grid2"><div><label for="msgAmount">Valor (€)</label><input id="msgAmount" type="number" min="0" step="0.01" placeholder="65"></div><div><label for="msgDate">Data da próxima limpeza</label><input id="msgDate" type="date"></div></div>
+  <label for="msgTime">Hora</label><input id="msgTime" type="time">
+  <label for="msgText">Mensagem</label><textarea id="msgText" rows="4"></textarea>
+  <div class="form-actions"><button type="button" class="secondary" id="whatsBtn">WhatsApp</button><button type="button" class="primary" id="smsBtn">SMS</button></div>
+  <p class="note">O envio totalmente automático ainda precisa de uma integração externa WhatsApp Business/SMS e de uma configuração segura. Estes botões abrem a aplicação escolhida; não enviam sem a tua confirmação.</p>
  </section>
  <h2>Histórico de limpezas</h2>
  <div class="tabs">
@@ -96,8 +112,10 @@ const euro=n=>Number(n||0).toLocaleString('pt-PT',{style:'currency',currency:'EU
 const today=()=>new Date().toISOString().slice(0,10);
 let cleans=JSON.parse(localStorage.getItem('ml_cleans')||'[]');
 let clients=JSON.parse(localStorage.getItem('ml_clients')||'[]');
+let clientPhones=JSON.parse(localStorage.getItem('ml_client_phones')||'{}');
+let clientNotes=JSON.parse(localStorage.getItem('ml_client_notes')||'{}');
 let filter='all';
-function save(){localStorage.setItem('ml_cleans',JSON.stringify(cleans));localStorage.setItem('ml_clients',JSON.stringify(clients));render()}
+function save(){localStorage.setItem('ml_cleans',JSON.stringify(cleans));localStorage.setItem('ml_clients',JSON.stringify(clients));localStorage.setItem('ml_client_phones',JSON.stringify(clientPhones));localStorage.setItem('ml_client_notes',JSON.stringify(clientNotes));render()}
 function duration(a,b){if(!a||!b)return 0;let [ah,am]=a.split(':').map(Number),[bh,bm]=b.split(':').map(Number);let mins=bh*60+bm-(ah*60+am);if(mins<0)mins+=1440;return mins/60}
 function fmtHours(h){return (Math.round(h*100)/100).toLocaleString('pt-PT',{maximumFractionDigits:2})+' h'}
 function monthItems(){let m=today().slice(0,7);return cleans.filter(x=>x.date&&x.date.slice(0,7)===m)}
@@ -105,26 +123,33 @@ function render(){
  let mi=monthItems(),sum=mi.reduce((s,x)=>s+Number(x.amount||0),0),hrs=mi.reduce((s,x)=>s+duration(x.start,x.end),0);
  $('monthMoney').textContent=euro(sum);$('monthHours').textContent=fmtHours(hrs);$('monthCount').textContent=mi.length;$('monthRate').textContent=euro(hrs?sum/hrs:0)+'/h';
  $('clientList').innerHTML=clients.map(c=>`<option value="${esc(c)}"></option>`).join('');
- $('clientNames').innerHTML=clients.length?clients.map(c=>`<span class="pill" style="display:inline-block;margin:3px">${esc(c)}</span>`).join(''):'Ainda não tens clientes guardados.';
+ $('clientNames').innerHTML=clients.length?clients.map(c=>`<span class="pill" style="display:inline-block;margin:3px">${esc(c)}${clientPhones[c]?' · '+esc(clientPhones[c]):''}</span>`).join(''):'Ainda não tens clientes guardados.';
  let list=[...cleans].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
  if(filter==='month')list=list.filter(x=>x.date&&x.date.slice(0,7)===today().slice(0,7));
- $('records').innerHTML=list.length?list.map(x=>{let h=duration(x.start,x.end),rate=h?Number(x.amount)/h:0;return `<article class="record"><div class="recordtop"><div><div class="client">${esc(x.client)}</div><div class="meta">${datePt(x.date)} · ${x.start}–${x.end}<br>${fmtHours(h)}${x.obs?' · '+esc(x.obs):''}</div></div><div class="money">${euro(x.amount)}<div class="meta">${euro(rate)}/h</div></div></div><div class="recordbuttons"><button class="secondary" onclick="editClean('${x.id}')">Editar</button><button class="danger" onclick="deleteClean('${x.id}')">Apagar</button></div></article>`}).join(''):'<div class="empty">Ainda não há limpezas registadas.<br>Carrega em “Nova limpeza” para começar.</div>';
+ $('records').innerHTML=list.length?list.map(x=>{let h=duration(x.start,x.end),rate=h?Number(x.amount)/h:0;return `<article class="record"><div class="recordtop"><div><div class="client">${esc(x.client)}</div><div class="meta">${datePt(x.date)} · ${x.start}–${x.end}<br>${fmtHours(h)}${x.obs?' · '+esc(x.obs):''}<br><span class="pill">${esc(x.payStatus||'Pago')}</span> · ${esc(x.payMethod||'Dinheiro')}</div></div><div class="money">${euro(x.amount)}<div class="meta">${euro(rate)}/h</div></div></div><div class="recordbuttons"><button class="secondary" onclick="editClean('${x.id}')">Editar</button><button class="danger" onclick="deleteClean('${x.id}')">Apagar</button></div></article>`}).join(''):'<div class="empty">Ainda não há limpezas registadas.<br>Carrega em “Nova limpeza” para começar.</div>';
 }
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function datePt(s){if(!s)return '';let [y,m,d]=s.split('-');return `${d}/${m}/${y}`}
-function showForm(item){$('formPanel').classList.remove('hidden');$('clientsPanel').classList.add('hidden');$('formTitle').textContent=item?'Editar limpeza':'Registar limpeza';$('editId').value=item?.id||'';$('client').value=item?.client||'';$('date').value=item?.date||today();$('amount').value=item?.amount??'';$('start').value=item?.start||'';$('end').value=item?.end||'';$('obs').value=item?.obs||'';preview();$('formPanel').scrollIntoView({behavior:'smooth',block:'start'})}
+function showForm(item){$('formPanel').classList.remove('hidden');$('clientsPanel').classList.add('hidden');$('formTitle').textContent=item?'Editar limpeza':'Registar limpeza';$('editId').value=item?.id||'';$('client').value=item?.client||'';$('date').value=item?.date||today();$('amount').value=item?.amount??'';$('start').value=item?.start||'';$('end').value=item?.end||'';$('obs').value=item?.obs||'';$('payStatus').value=item?.payStatus||'Pago';$('payMethod').value=item?.payMethod||'Dinheiro';preview();$('formPanel').scrollIntoView({behavior:'smooth',block:'start'})}
 function preview(){let h=duration($('start').value,$('end').value),a=Number($('amount').value);$('preview').textContent=$('start').value&&$('end').value?`Tempo: ${fmtHours(h)} · Ganho por hora: ${euro(h?a/h:0)}/h`:'Preenche as horas e o valor para calcular os ganhos por hora.'}
 $('newBtn').onclick=()=>showForm();$('clientsBtn').onclick=()=>{$('clientsPanel').classList.toggle('hidden');$('formPanel').classList.add('hidden');$('clientsPanel').scrollIntoView({behavior:'smooth'})};
 $('cancelBtn').onclick=()=>$('formPanel').classList.add('hidden');
+$('messagesBtn').onclick=()=>{$('messagesPanel').classList.toggle('hidden');$('formPanel').classList.add('hidden');$('clientsPanel').classList.add('hidden');$('messagesPanel').scrollIntoView({behavior:'smooth'});};
+$('msgClient').addEventListener('change',()=>{$('msgPhone').value=clientPhones[$('msgClient').value]||'';buildMessage()});
+['msgType','msgAmount','msgDate','msgTime','msgPhone'].forEach(id=>$(id).addEventListener('input',buildMessage));
+function buildMessage(){let n=$('msgClient').value.trim()||'Olá',v=$('msgAmount').value,d=$('msgDate').value,t=$('msgTime').value,dp=d?datePt(d):'a combinar';let m='';switch($('msgType').value){case 'price':m=`Olá ${n}! A limpeza ficou em ${v?euro(v):'___'}. Obrigada pela preferência!`;break;case 'next':m=`Olá ${n}! Gostaria de confirmar a próxima limpeza para ${dp}${t?' às '+t:''}. Está bem para si?`;break;case 'reminder':m=`Olá ${n}! Só para lembrar que temos a limpeza marcada para ${dp}${t?' às '+t:''}. Até breve!`;break;default:m=`Olá ${n}! Muito obrigada pela confiança e preferência. Até à próxima!`;} $('msgText').value=m;}
+function phoneDigits(){return $('msgPhone').value.replace(/[^0-9+]/g,'').replace(/^00/,'+');}
+$('whatsBtn').onclick=()=>{let p=phoneDigits().replace(/\D/g,'');if(!p){alert('Insere o número da cliente com indicativo.');return;}window.open('https://wa.me/'+p+'?text='+encodeURIComponent($('msgText').value),'_blank');};
+$('smsBtn').onclick=()=>{let p=phoneDigits();if(!p){alert('Insere o número da cliente com indicativo.');return;}location.href='sms:'+p+'?&body='+encodeURIComponent($('msgText').value);};
 ['start','end','amount'].forEach(id=>$(id).addEventListener('input',preview));
-$('cleanForm').onsubmit=e=>{e.preventDefault();let item={id:$('editId').value||String(Date.now()),client:$('client').value.trim(),date:$('date').value,amount:Number($('amount').value),start:$('start').value,end:$('end').value,obs:$('obs').value.trim()};if(!item.client)return;if(!clients.some(c=>c.toLowerCase()===item.client.toLowerCase()))clients.push(item.client);let i=cleans.findIndex(x=>x.id===item.id);if(i>=0)cleans[i]=item;else cleans.push(item);save();$('formPanel').classList.add('hidden')};
-$('addClient').onclick=()=>{let n=$('newClient').value.trim();if(n&&!clients.some(c=>c.toLowerCase()===n.toLowerCase()))clients.push(n);$('newClient').value='';save()};
+$('cleanForm').onsubmit=e=>{e.preventDefault();let item={id:$('editId').value||String(Date.now()),client:$('client').value.trim(),date:$('date').value,amount:Number($('amount').value),start:$('start').value,end:$('end').value,obs:$('obs').value.trim(),payStatus:$('payStatus').value,payMethod:$('payMethod').value};if(!item.client)return;if(!clients.some(c=>c.toLowerCase()===item.client.toLowerCase()))clients.push(item.client);let i=cleans.findIndex(x=>x.id===item.id);if(i>=0)cleans[i]=item;else cleans.push(item);save();$('formPanel').classList.add('hidden')};
+$('addClient').onclick=()=>{let n=$('newClient').value.trim();if(!n){alert('Escreve o nome da cliente.');return;}if(!clients.some(c=>c.toLowerCase()===n.toLowerCase()))clients.push(n);clientPhones[n]=$('newPhone').value.trim();clientNotes[n]=$('newClientNotes').value.trim();$('newClient').value='';$('newPhone').value='';$('newClientNotes').value='';save()};
 window.editClean=id=>{let x=cleans.find(c=>c.id===id);if(x)showForm(x)};
 window.deleteClean=id=>{if(confirm('Queres apagar este registo?')){cleans=cleans.filter(c=>c.id!==id);save()}};
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===b));render()});
 function download(name,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
 $('exportBtn').onclick=()=>{let rows=[['Data','Cliente','Valor (€)','Entrada','Saída','Horas','Ganhos por hora (€)','Observações'],...cleans.map(x=>{let h=duration(x.start,x.end);return [x.date,x.client,x.amount,x.start,x.end,h.toFixed(2),(h?x.amount/h:0).toFixed(2),x.obs]})];download('minhas-limpezas.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n'),'text/csv;charset=utf-8')};
-$('backupBtn').onclick=()=>download('backup-minhas-limpezas.json',JSON.stringify({cleans,clients},null,2),'application/json');
+$('backupBtn').onclick=()=>download('backup-minhas-limpezas.json',JSON.stringify({cleans,clients,clientPhones,clientNotes},null,2),'application/json');
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 render();
 </script>
