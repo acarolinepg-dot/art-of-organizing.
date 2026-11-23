@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#315b50">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Art of Organizing">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Art of Organizing</title>
+<style>
+:root{--green:#315b50;--green2:#47796b;--bg:#f4f7f5;--card:#fff;--ink:#20312b;--muted:#718078;--line:#e1e9e4;--red:#b64b4b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+header{background:var(--green);color:white;padding:calc(18px + env(safe-area-inset-top)) 18px 22px;border-radius:0 0 24px 24px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:23px;font-weight:800;letter-spacing:-.5px}.sub{font-size:13px;opacity:.8;margin-top:4px}
+main{max-width:760px;margin:auto;padding:16px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:-2px}
+.stat,.panel,.record{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:0 3px 12px #20312b08}
+.stat small{color:var(--muted);display:block;font-size:12px}.stat strong{font-size:23px;display:block;margin-top:6px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+button{border:0;border-radius:13px;padding:13px 15px;font-weight:700;font-size:14px;cursor:pointer}
+.primary{background:var(--green);color:#fff}.secondary{background:#e7f0ec;color:var(--green)}
+h2{font-size:17px;margin:20px 2px 10px}.panel{margin:12px 0}
+label{display:block;font-size:12px;color:var(--muted);font-weight:650;margin:11px 0 5px}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:12px;font:inherit;background:#fff;color:var(--ink);min-height:44px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-actions{display:flex;gap:9px;margin-top:16px}.form-actions button{flex:1}
+.hidden{display:none!important}.record{margin:9px 0;padding:13px}.recordtop{display:flex;justify-content:space-between;gap:10px}.client{font-weight:750}.meta{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5}.money{text-align:right;font-weight:800;color:var(--green);white-space:nowrap}.recordbuttons{display:flex;gap:8px;margin-top:10px}.recordbuttons button{padding:8px 11px;font-size:12px}
+.pill{font-size:11px;background:#e7f0ec;color:var(--green);padding:5px 8px;border-radius:20px}
+.empty{text-align:center;color:var(--muted);padding:24px 10px;font-size:14px}
+.tabs{display:flex;gap:7px;overflow:auto;margin:14px 0}.tab{background:#e7ece9;color:#52635b;white-space:nowrap}.tab.active{background:var(--green);color:#fff}
+.note{font-size:12px;color:var(--muted);line-height:1.5}.danger{background:#faeaea;color:var(--red)}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+</style>
+</head>
+<body>
+<header>
+ <div class="top"><div><div class="brand">Art of Organizing</div><div class="sub">Personal Organizer · Gestão de serviços</div></div><span class="pill">Pessoal</span></div>
+</header>
+<main>
+ <section class="stats">
+  <div class="stat"><small>Ganhos este mês</small><strong id="monthMoney">0,00 €</strong></div>
+  <div class="stat"><small>Horas este mês</small><strong id="monthHours">0 h</strong></div>
+  <div class="stat"><small>Limpezas registadas</small><strong id="monthCount">0</strong></div>
+  <div class="stat"><small>Média por hora</small><strong id="monthRate">0,00 €/h</strong></div>
+ </section>
+ <div class="actions">
+  <button class="primary" id="newBtn">＋ Nova limpeza</button>
+  <button class="secondary" id="clientsBtn">👥 Clientes</button>
+ </div>
+ <section id="formPanel" class="panel hidden">
+  <h2 id="formTitle" style="margin-top:0">Registar limpeza</h2>
+  <form id="cleanForm">
+   <input type="hidden" id="editId">
+   <label for="client">Cliente</label><input id="client" list="clientList" placeholder="Nome do cliente" required><datalist id="clientList"></datalist>
+   <div class="grid2">
+    <div><label for="date">Data</label><input id="date" type="date" required></div>
+    <div><label for="amount">Valor recebido (€)</label><input id="amount" type="number" min="0" step="0.01" placeholder="45,00" required></div>
+   </div>
+   <div class="grid2">
+    <div><label for="start">Hora de entrada</label><input id="start" type="time" required></div>
+    <div><label for="end">Hora de saída</label><input id="end" type="time" required></div>
+   </div>
+   <label for="obs">Observações (opcional)</label><textarea id="obs" rows="2" placeholder="Ex.: limpeza geral, passar a ferro..."></textarea>
+   <p class="note" id="preview">Preenche as horas e o valor para calcular os ganhos por hora.</p>
+   <div class="form-actions"><button type="button" class="secondary" id="cancelBtn">Cancelar</button><button class="primary" type="submit">Guardar limpeza</button></div>
+  </form>
+ </section>
+ <section id="clientsPanel" class="panel hidden">
+  <h2 style="margin-top:0">Clientes</h2>
+  <label for="newClient">Adicionar cliente</label>
+  <div class="grid2"><input id="newClient" placeholder="Nome do cliente"><button class="primary" id="addClient">Adicionar</button></div>
+  <div id="clientNames" class="meta" style="margin-top:12px"></div>
+  <p class="note">Os nomes também aparecem como sugestões quando registas uma limpeza.</p>
+ </section>
+ <h2>Histórico de limpezas</h2>
+ <div class="tabs">
+  <button class="tab active" data-filter="all">Todas</button>
+  <button class="tab" data-filter="month">Este mês</button>
+ </div>
+ <div id="records"></div>
+ <div class="panel">
+  <h2 style="margin-top:0">Cópia de segurança</h2>
+  <p class="note">Exporta os teus registos para guardar uma cópia. Os dados ficam guardados neste navegador e neste iPhone.</p>
+  <div class="actions" style="margin-bottom:0">
+   <button class="secondary" id="exportBtn">Exportar CSV</button>
+   <button class="secondary" id="backupBtn">Guardar cópia JSON</button>
+  </div>
+ </div>
+ <footer>Art of Organizing · Os teus dados são guardados localmente neste dispositivo.</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const euro=n=>Number(n||0).toLocaleString('pt-PT',{style:'currency',currency:'EUR'});
+const today=()=>new Date().toISOString().slice(0,10);
+let cleans=JSON.parse(localStorage.getItem('ml_cleans')||'[]');
+let clients=JSON.parse(localStorage.getItem('ml_clients')||'[]');
+let filter='all';
+function save(){localStorage.setItem('ml_cleans',JSON.stringify(cleans));localStorage.setItem('ml_clients',JSON.stringify(clients));render()}
+function duration(a,b){if(!a||!b)return 0;let [ah,am]=a.split(':').map(Number),[bh,bm]=b.split(':').map(Number);let mins=bh*60+bm-(ah*60+am);if(mins<0)mins+=1440;return mins/60}
+function fmtHours(h){return (Math.round(h*100)/100).toLocaleString('pt-PT',{maximumFractionDigits:2})+' h'}
+function monthItems(){let m=today().slice(0,7);return cleans.filter(x=>x.date&&x.date.slice(0,7)===m)}
+function render(){
+ let mi=monthItems(),sum=mi.reduce((s,x)=>s+Number(x.amount||0),0),hrs=mi.reduce((s,x)=>s+duration(x.start,x.end),0);
+ $('monthMoney').textContent=euro(sum);$('monthHours').textContent=fmtHours(hrs);$('monthCount').textContent=mi.length;$('monthRate').textContent=euro(hrs?sum/hrs:0)+'/h';
+ $('clientList').innerHTML=clients.map(c=>`<option value="${esc(c)}"></option>`).join('');
+ $('clientNames').innerHTML=clients.length?clients.map(c=>`<span class="pill" style="display:inline-block;margin:3px">${esc(c)}</span>`).join(''):'Ainda não tens clientes guardados.';
+ let list=[...cleans].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+ if(filter==='month')list=list.filter(x=>x.date&&x.date.slice(0,7)===today().slice(0,7));
+ $('records').innerHTML=list.length?list.map(x=>{let h=duration(x.start,x.end),rate=h?Number(x.amount)/h:0;return `<article class="record"><div class="recordtop"><div><div class="client">${esc(x.client)}</div><div class="meta">${datePt(x.date)} · ${x.start}–${x.end}<br>${fmtHours(h)}${x.obs?' · '+esc(x.obs):''}</div></div><div class="money">${euro(x.amount)}<div class="meta">${euro(rate)}/h</div></div></div><div class="recordbuttons"><button class="secondary" onclick="editClean('${x.id}')">Editar</button><button class="danger" onclick="deleteClean('${x.id}')">Apagar</button></div></article>`}).join(''):'<div class="empty">Ainda não há limpezas registadas.<br>Carrega em “Nova limpeza” para começar.</div>';
+}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function datePt(s){if(!s)return '';let [y,m,d]=s.split('-');return `${d}/${m}/${y}`}
+function showForm(item){$('formPanel').classList.remove('hidden');$('clientsPanel').classList.add('hidden');$('formTitle').textContent=item?'Editar limpeza':'Registar limpeza';$('editId').value=item?.id||'';$('client').value=item?.client||'';$('date').value=item?.date||today();$('amount').value=item?.amount??'';$('start').value=item?.start||'';$('end').value=item?.end||'';$('obs').value=item?.obs||'';preview();$('formPanel').scrollIntoView({behavior:'smooth',block:'start'})}
+function preview(){let h=duration($('start').value,$('end').value),a=Number($('amount').value);$('preview').textContent=$('start').value&&$('end').value?`Tempo: ${fmtHours(h)} · Ganho por hora: ${euro(h?a/h:0)}/h`:'Preenche as horas e o valor para calcular os ganhos por hora.'}
+$('newBtn').onclick=()=>showForm();$('clientsBtn').onclick=()=>{$('clientsPanel').classList.toggle('hidden');$('formPanel').classList.add('hidden');$('clientsPanel').scrollIntoView({behavior:'smooth'})};
+$('cancelBtn').onclick=()=>$('formPanel').classList.add('hidden');
+['start','end','amount'].forEach(id=>$(id).addEventListener('input',preview));
+$('cleanForm').onsubmit=e=>{e.preventDefault();let item={id:$('editId').value||String(Date.now()),client:$('client').value.trim(),date:$('date').value,amount:Number($('amount').value),start:$('start').value,end:$('end').value,obs:$('obs').value.trim()};if(!item.client)return;if(!clients.some(c=>c.toLowerCase()===item.client.toLowerCase()))clients.push(item.client);let i=cleans.findIndex(x=>x.id===item.id);if(i>=0)cleans[i]=item;else cleans.push(item);save();$('formPanel').classList.add('hidden')};
+$('addClient').onclick=()=>{let n=$('newClient').value.trim();if(n&&!clients.some(c=>c.toLowerCase()===n.toLowerCase()))clients.push(n);$('newClient').value='';save()};
+window.editClean=id=>{let x=cleans.find(c=>c.id===id);if(x)showForm(x)};
+window.deleteClean=id=>{if(confirm('Queres apagar este registo?')){cleans=cleans.filter(c=>c.id!==id);save()}};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t===b));render()});
+function download(name,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+$('exportBtn').onclick=()=>{let rows=[['Data','Cliente','Valor (€)','Entrada','Saída','Horas','Ganhos por hora (€)','Observações'],...cleans.map(x=>{let h=duration(x.start,x.end);return [x.date,x.client,x.amount,x.start,x.end,h.toFixed(2),(h?x.amount/h:0).toFixed(2),x.obs]})];download('minhas-limpezas.csv','\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n'),'text/csv;charset=utf-8')};
+$('backupBtn').onclick=()=>download('backup-minhas-limpezas.json',JSON.stringify({cleans,clients},null,2),'application/json');
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+render();
+</script>
+</body></html>
